@@ -32,5 +32,8 @@ class WeatherVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "weatherCell", for: indexPath)
         return cell
     }
+    
+    
+    
 }
 
