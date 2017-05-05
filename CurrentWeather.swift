@@ -22,7 +22,7 @@ class CurrentWeather {
     }
     
     var date: String {
-        guard (_date) != nil else {
+        guard (_date) == nil else {
             return ""
         }
         let dateFormatter = DateFormatter()
@@ -41,7 +41,11 @@ class CurrentWeather {
         return _currentTemp ?? 0
     }
     
-    func downloadWeatherDetails(completed: DownloadComplete) {
+    var image: UIImage {
+        return UIImage(named: weatherType)!
+    }
+    
+    func downloadWeatherDetails(completed: @escaping DownloadComplete) {
         let currentWeatherURL = URL(string: CURRENT_WEATHER_URL)
         Alamofire.request(currentWeatherURL!).responseJSON{ response in
             if let json = response.result.value as? [String: AnyObject]{
@@ -58,6 +62,7 @@ class CurrentWeather {
                 self._currentTemp = temp.kelvinToCelsius
                 
                 print(self._currentTemp, self._weatherType, self._cityName)
+                completed()
             } else {
                 print("download failed")
             }
