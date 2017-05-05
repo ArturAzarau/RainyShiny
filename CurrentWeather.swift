@@ -46,9 +46,9 @@ class CurrentWeather {
     }
     
     func downloadWeatherDetails(completed: @escaping DownloadComplete) {
-        let currentWeatherURL = URL(string: CURRENT_WEATHER_URL)
-        Alamofire.request(currentWeatherURL!).responseJSON{ response in
+        Alamofire.request(CURRENT_WEATHER_URL).responseJSON{ response in
             if let json = response.result.value as? [String: AnyObject]{
+                print(response)
                 guard let name = json["name"] as? String else { return }
                 self._cityName = name.capitalized
                 
